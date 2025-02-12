@@ -70,9 +70,11 @@ fn copy_with_cp(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> io::Result<()> 
         .arg("-R")
         .arg(src.as_ref().to_str().unwrap())
         .arg(dst.as_ref().to_str().unwrap())
-        .status()?;
+        .output()?;
 
-    if !status.success() {
+    println!("cp stderr: {:?}", status.stderr);
+
+    if !status.status.success() {
         Err(io::Error::new(
             io::ErrorKind::Other,
             "Failed to copy using cp",
