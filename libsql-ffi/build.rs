@@ -38,9 +38,10 @@ fn main() {
         "bundled/bindings/bindgen.rs"
     };
 
-    let dir = env!("CARGO_MANIFEST_DIR");
+    let dir = std::env::current_dir().unwrap();
 
-    let full_src_path = Path::new(dir).join(bindgen_rs_path);
+
+    let full_src_path = dir.join(bindgen_rs_path);
     copy_with_cp(full_src_path, &out_path).unwrap();
 
     println!("cargo:lib_dir={out_dir}");
