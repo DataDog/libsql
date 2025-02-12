@@ -72,7 +72,7 @@ fn copy_with_cp(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> io::Result<()> 
         .arg(dst.as_ref().to_str().unwrap())
         .output()?;
 
-    println!("cp stderr: {:?}", status.stderr);
+    println!("cp stderr: {:?}", String::from_utf8(status.stderr).unwrap());
 
     if !status.status.success() {
         Err(io::Error::new(
